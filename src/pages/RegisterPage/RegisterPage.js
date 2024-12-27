@@ -1,23 +1,51 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-// import { register } from '../../services/authService'; 
-import InputField from '../../components/InputField'; 
+import InputField from '../../components/InputField';
 import './RegisterPage.css';
-
+import InputMask from 'react-input-mask';
 const RegisterPage = () => {
-    const [name, setName] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
-    const navigate = useNavigate();
+    const [formData, setFormData] = useState({
+        email: '',
+        name: '',
+        phoneNumber: '',
+        cpf: '',
+        birthDate: '',
+        password: '',
+        confirmPassword: '',
+        cep: '',
+        street: '',
+        number: '',
+        complement: '',
+        neighborhood: '',
+        city: '',
+        state: '',
+        country: 'Brasil',
+    });
 
-    const handleSubmit = async (e) => {
+    const [errorMessage, setErrorMessage] = useState('');
+
+    const handleChange = (e) => {
+        const { id, value } = e.target;
+        setFormData((prevData) => ({
+            ...prevData,
+            [id]: value,
+        }));
+    };
+
+    const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (!name || !email || !password || !confirmPassword) {
-            setErrorMessage('Por favor, preencha todos os campos.');
+        const {
+            email,
+            name,
+            phoneNumber,
+            cpf,
+            birthDate,
+            password,
+            confirmPassword,
+        } = formData;
+
+        if (!email || !name || !phoneNumber || !cpf || !birthDate || !password || !confirmPassword) {
+            setErrorMessage('Por favor, preencha todos os campos obrigatórios.');
             return;
         }
 
@@ -26,61 +54,141 @@ const RegisterPage = () => {
             return;
         }
 
+        // Envio para a API (descomente e ajuste)
         // try {
-        //     await register(name, email, password, navigate);
+        //     await register(formData, navigate);
         // } catch (error) {
         //     setErrorMessage(error.message);
         // }
     };
 
-    const handleBackToLogin = () => {
-        navigate('/');
-    };
-
     return (
-        <div className="container">
-            <h2 className="title">Dados Pessoais</h2>
-            <form className="form" onSubmit={handleSubmit}>
+    <div className="container">
+        <form className="form" onSubmit={handleSubmit}>
+            <div className="form-section">
+                <h3>Dados Pessoais</h3>
                 <InputField
                     type="email"
                     id="email"
-                    label="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    label="E-mail*"
+                    value={formData.email}
+                    onChange={handleChange}
                 />
                 <InputField
                     type="text"
                     id="name"
-                    label="Nome"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    label="Nome Completo*"
+                    value={formData.name}
+                    onChange={handleChange}
+                />
+                <InputMask
+                    mask="(99) 99999-9999" // Máscara para telefone no formato brasileiro
+                    value={formData.phoneNumber}
+                    onChange={(e) => handleChange(e)} // Reutiliza seu handler
+                >
+                    {(inputProps) => (
+                        <InputField
+                            {...inputProps}
+                            id="phoneNumber"
+                            type="text"
+                            label="Celular*"
+                        />
+                    )}
+                </InputMask>
+                <InputField
+                    type="text"
+                    id="cpf"
+                    label="CPF*"
+                    value={formData.cpf}
+                    onChange={handleChange}
                 />
                 <InputField
-                    type="number"
-                    id="phoneNumber"
-                    label="Telefone"
-                    value={phoneNumber}
-                    onChange={(e) => setPhoneNumber(e.target.value)}
+                    type="date"
+                    id="birthDate"
+                    label="Data de Nascimento*"
+                    value={formData.birthDate}
+                    onChange={handleChange}
                 />
                 <InputField
                     type="password"
                     id="password"
-                    label="Senha"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    label="Senha*"
+                    value={formData.password}
+                    onChange={handleChange}
                 />
                 <InputField
                     type="password"
-                    id="confirm-password"
-                    label="Confirmar Senha"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    id="confirmPassword"
+                    label="Confirmar Senha*"
+                    value={formData.confirmPassword}
+                    onChange={handleChange}
                 />
-                {errorMessage && <p className="error">{errorMessage}</p>}
-                <button type="submit" className="button">Criar Conta</button>
-            </form>
-            <p onClick={handleBackToLogin} className="back-to-login">Voltar para o login</p>
-        </div>
+            </div>
+            <div className="form-section">
+                <h3>Dados de Entrega</h3>
+                <InputField
+                    type="text"
+                    id="cep"
+                    label="CEP*"
+                    value={formData.cep}
+                    onChange={handleChange}
+                />
+                <InputField
+                    type="text"
+                    id="street"
+                    label="Logradouro*"
+                    value={formData.street}
+                    onChange={handleChange}
+                />
+                <InputField
+                    type="text"
+                    id="number"
+                    label="Número*"
+                    value={formData.number}
+                    onChange={handleChange}
+                />
+                <InputField
+                    type="text"
+                    id="complement"
+                    label="Complemento"
+                    value={formData.complement}
+                    onChange={handleChange}
+                />
+                <InputField
+                    type="text"
+                    id="neighborhood"
+                    label="Bairro*"
+                    value={formData.neighborhood}
+                    onChange={handleChange}
+                />
+                <InputField
+                    type="text"
+                    id="city"
+                    label="Cidade*"
+                    value={formData.city}
+                    onChange={handleChange}
+                />
+                <InputField
+                    type="text"
+                    id="state"
+                    label="Estado*"
+                    value={formData.state}
+                    onChange={handleChange}
+                />
+                <InputField
+                    type="text"
+                    id="country"
+                    label="País*"
+                    value={formData.country}
+                    onChange={handleChange}
+                />
+            </div>
+            {errorMessage && <p className="error">{errorMessage}</p>}
+            <button type="submit" className="button">
+                Concluir Cadastro
+            </button>
+        </form>
+    </div>
     );
 };
 

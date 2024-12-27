@@ -1,54 +1,115 @@
-.login-container {
+/* Container principal */
+.container {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
     padding: 20px;
-    max-width: 400px;
+    max-width: 1000px;
     margin: 0 auto;
     text-align: center;
+  }
+.login-section {
+    width: 48%;  /* Ajusta a largura do formulário de login */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
+
+.register-info {
+    width: 48%;  /* Ajusta a largura da seção de registro */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.register-info h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+.register-info p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    color: rgb(109, 109, 109);
+    font-family: Montserrat, sans-serif; 
+}
+
+.register-button {
+    padding: 10px 20px;
+    background-color: #000;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.register-button:hover {
+    background-color: #363636;
+}
+
+/* Formatação do título e formulários */
+.title {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    font-family: Montserrat, sans-serif;
+    font-weight: bold;
+}
+
+.title-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Alinha verticalmente os títulos */
+    align-items: center; /* Garante que os títulos fiquem centralizados */
+    height: 100%;
+}
+
+.login-section,
+.register-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%; /* Dividindo igualmente o espaço */
+}
+
+
 
 .login-form {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    width: 100%;
+}
+
+.forgot-password {
+    text-align: left;
+    cursor: pointer;
+    color: #626262;
 }
 
 .login-button {
-    padding: 10px;
+    padding: 10px 20px;
     background-color: #000;
-    color: #fff;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .login-button:hover {
-    background-color: #444;
+    background-color: #363636;
 }
 
-.toggle-text {
-    color: rgb(109, 109, 109);
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-.error {
-    color: red;
-    font-size: 0.875rem;
-}
-
-/* Container principal */
-.container {
-    padding: 20px;
-    max-width: 400px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
+/* Estilos para campos de entrada */
 .input-container {
     position: relative;
     margin-bottom: 20px;
@@ -59,14 +120,14 @@
     padding: 10px 0;
     font-size: 1rem;
     border: none;
-    border-bottom: 2px solid #ccc; 
+    border-bottom: 2px solid #ccc;
     outline: none;
     background-color: transparent;
     transition: border-color 0.3s ease;
 }
 
 .input-field:focus {
-    border-color: #000; 
+    border-color: #000;
 }
 
 .input-label {
@@ -85,29 +146,6 @@
     font-size: 0.8rem;
     color: #000;
 }
-
-.button {
-    padding: 10px;
-    background-color: #000;
-    color: #fff;
-    cursor: pointer;
-    font-size: 1rem;
-    border: none;
-    border-radius: 4px;
-    transition: background-color 0.3s;
-}
-
-.button:hover {
-    background-color: #444;
-}
-
-.toggle {
-    color: blue;
-    cursor: pointer;
-    margin-top: 15px;
-    font-size: 0.9rem;
-}
-
 
 .error {
     color: red;
